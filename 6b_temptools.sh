@@ -1,5 +1,5 @@
 #!/bin/bash
-export LFS=/mnt/lfs
+
 ##### Making directory in the new file system #########
 
 mkdir -pv /{boot,home,mnt,opt,srv}
