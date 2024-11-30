@@ -1,6 +1,6 @@
 #!/bin/bash
 
-touch /var/log/{btmp,lastlog.faillog,wtmp}
+touch /var/log/{btmp,lastlog,faillog,wtmp}
 chgrp -v utmp /var/log/lastlog
 chmod -v 664 /var/log/lastlog
 chmod -v 600 /var/log/btmp
@@ -54,7 +54,7 @@ sh Configure -des \
 make
 make install
 
-cd..
+cd ..
 rm -rf perl-5.40.0
 
 ###################### python ##############################
