@@ -1,5 +1,5 @@
 #!/bin/bash
-
+export LFS=/mnt/lfs
 ##### Making directory in the new file system #########
 
 mkdir -pv /{boot,home,mnt,opt,srv}
@@ -84,7 +84,7 @@ chgrp -v utmp /var/log/lastlog
 chmod -v 664 /var/log/lastlog
 chmod -v 600 /var/log/btmp
 
-cd $LFS/sources
+cd /sources
 ######### getting packages ##################
 ########### gettext ######################
 
@@ -159,7 +159,7 @@ cd texinfo-7.1
 ./configure --prefix=/usr
  
  make
-  make install
+ make install
  
  cd ..
  rm -rf texinfo-7.1
