@@ -42,12 +42,12 @@ useradd -s /bin/bash -g lfs -m -k /dev/null lfs
 echo "lets create a password for the lfs account to start"
 passwd lfs
 
-chown -v lfs:lfs $LFS/{usr{,/*},lib,var,etc,bin,sbin,tools,sources,scripts}
+chown -v lfs $LFS/{usr{,/*},lib,var,etc,bin,sbin,tools,sources,scripts}
+chmod -R u+w $LFS
 case $(uname -m) in
 x86_64) chown -v lfs $LFS/lib64 ;;
 esac
 
-chmod -v u+w {usr{,/*},lib,var,etc,bin,sbin,tools,sources,scripts}
 usermod -aG wheel lfs ## Adds lfs to sudo in gentoo
 
 echo "Please log out as root and log in as user lfs"
