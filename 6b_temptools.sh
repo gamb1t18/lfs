@@ -15,7 +15,7 @@ mkdir -pv /usr/{,local/}share/man/man{1..8}
 mkdir -pv /var/{cache,local,log,mail,opt,spool}
 mkdir -pv /var/lib/{color,misc,locate}
 
-ln -sfv /run/var/run
+ln -sfv /run /var/run
 ln -sfv /run/lock /var/lock
 
 install -dv -m 0750 /root
@@ -111,7 +111,7 @@ cd bison-3.8.2
 make
 make install
 
-cd..
+cd ..
 rm -rf bison-3.8.2
 
 ############ perl #######################################
@@ -119,7 +119,7 @@ rm -rf bison-3.8.2
 tar -xf perl-5.40.0.tar.xz
 cd perl-5.40.0
 
-as Configure -des \
+sh Configure -des \
 -D prefix=/usr \
 -D vendorprefix=/usr \
 -D useshrplib \
@@ -153,7 +153,7 @@ rm -rf Python-3.12.5
 
 ################# texinfo ##################################
 
-tar -xv texinfo-7.1.tar.xz
+tar -xf texinfo-7.1.tar.xz
 cd texinfo-7.1
 
 ./configure --prefix=/usr
@@ -184,7 +184,7 @@ mkdir -pv /var/lib/hwclock
 --disable-liblastlog2 \
 --without-python \
 ADJTIME_PATH=/var/lib/hwclock/adjtime \
---docdir=/usr/share/doc/util-linux-2.4 0.2
+--docdir=/usr/share/doc/util-linux-2.40.2
 
 make
 make install
