@@ -3,7 +3,7 @@ export LFS=/mnt/lfs
 
 ##################### must be done as lfs ###########33
 if [ "$EUID" -eq 0 ]; then
-    echo "This script must NOT be run as root. Please run it as a regular user."
+    echo "This script must NOT be run as root. Please run it as user lfs."
     exit 1
 fi
 
