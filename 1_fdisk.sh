@@ -43,6 +43,6 @@ mkfs.vfat -F32 /dev/"${LFS_DISK}p1"
 mkfs -v -t ext4 /dev/"${LFS_DISK}p2"
 mkfs -v-t ext4 /dev/"${LFS_DISK}p4"
 mkswap /dev/"${LFS_DISK}p3"
-/sbin/swapon -v /dev/nvme0n1p3
+/sbin/swapon -v /dev/"${LFS_DISK}p3"
 
 exit 0
