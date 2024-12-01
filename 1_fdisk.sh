@@ -1,3 +1,4 @@
+#!/bin/bash
 # automation of fdisk for partitioning and filesystem ext4
 if [ "$EUID" -ne 0 ]; then
     echo "This script must be run as root. Please log out run as the root user."
