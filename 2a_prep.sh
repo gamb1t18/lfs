@@ -14,7 +14,7 @@ mount -v -t ext4 /dev/nvme0n1p4 $LFS #mountpoint for new linux OS
 chmod -v a+wt $LFS/sources # enables write and sticky mode
 mkdir -pv $LFS/tools # dir for compilers
 mkdir -pv $LFS/scripts # for installation scripts
-copy -r /home/gentoo/complete $LFS/scripts
+cp -r /home/gentoo/complete $LFS/scripts
 
 case $(uname -m) in
 	x86_64) mkdir -pv $LFS/lib64 ;;
