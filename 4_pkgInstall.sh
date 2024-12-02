@@ -33,8 +33,7 @@ make
 make install
 cd ../..
 
-rm -rf /binutils-2.43.1
-
+rm -rf binutils-2.43.1 || echo "Failed to remove binutils-2.43.1"
 echo "Binutils compiled, hit enter to continue"
 read -r
 
@@ -91,7 +90,7 @@ cat gcc/limitx.h gcc/glimits.h gcc/limity.h > \
 `dirname $($LFS_TGT-gcc -print-libgcc-file-name)`/include/limits.h
 
 cd ..
-rm -rf gcc-14.2.0
+rm -rf gcc-14.2.0 || echo "Failed to remove gcc-14.2.0"
 rm -rf gmp-6.3.0
 rm -rf mpfr-4.2.1
 rm -rf mpc-1.3.1
@@ -156,7 +155,7 @@ sed '/RTLDLIST=/s@/usr@@g' -i $LFS/usr/bin/ldd
 
 cd ../..
 
-rm -rf glib-2.40
+rm -rf glib-2.40 || echo "Failed to remove glib-2.40"
 
 echo "Finished compiling GCC. Hit enter to continue"
 read -r
@@ -206,5 +205,5 @@ make DESTDIR=$LFS install
 rm -v $LFS/usr/lib/lib{stdc++{,exp,fs},supc++}.la
 
 cd ../..
-rm -rf gcc14.2.0
+rm -rf gcc-14.2.0 || echo "Failed to remove gcc-14.2.0"
 
