@@ -112,6 +112,7 @@ find usr/include -type f ! -name '*.h' -delete
 cp -rv usr/include $LFS/usr
 
 cd ..
+rm -rf linux-6.10.5
 echo "finished Linux API headers. Hit enter to continue"
 read -r
 
