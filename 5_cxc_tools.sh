@@ -208,7 +208,7 @@ make
 make DESTDIR=$LFS install
 
 cd ..
-rm -rf gzip-1.1
+rm -rf gzip-1.13
 
 ################### make #####################################
 
@@ -298,7 +298,7 @@ cd binutils-2.43.1
 
 sed '6009s/$add_dr//' -i ltmain.sh
 
-mkdir build
+mkdir -v build
 cd build
 
 ../configure \
