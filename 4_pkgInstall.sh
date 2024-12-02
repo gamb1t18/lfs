@@ -156,7 +156,7 @@ sed '/RTLDLIST=/s@/usr@@g' -i $LFS/usr/bin/ldd
 
 cd ../..
 
-rm -rf glib-2.40 || echo "Failed to remove glib-2.40"
+rm -rf glibc-2.40 || echo "Failed to remove glibc-2.40"
 
 echo "Finished compiling GCC. Hit enter to continue"
 read -r
