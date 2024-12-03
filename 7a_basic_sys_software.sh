@@ -335,3 +335,61 @@ install -v -m644 doc/dejagnu.{html,txt} /usr/share/doc/dejagnu-1.6.3
 
 cd ..
 rm -rf dejagnu-1.6.3
+#################### pkgconf-2.3.0 ################################
+tar -xf pkgconf-2.3.0.tar.xz
+cd pkgconf-2.3.0
+
+./configure --prefix=/usr \
+--disable-static \
+--docdir=/usr/share/doc/pkgconf-2.3.0
+
+make
+make install
+
+ln -sv pkgconf /usr/bin/pkg-config
+ln -sv pkgconf.1 /usr/share/man/man1/pkg-config.1
+
+cd..
+rm -rf pkgconf-2.3.0
+################### binutils-2.43.1 ######################
+tar -xf binutils-2.43.1.tar.xz
+cd binutils-2.43.1
+../configure --prefix=/usr \
+--sysconfdir=/etc \
+--enable-gold \
+--enable-ld=default \
+--enable-plugins \
+--enable-shared \
+--disable-werror \
+--enable-64-bit-bfd \
+--enable-new-dtags \
+--with-system-zlib \
+--enable-default-hash-style=gnu
+
+make tooldir=/usr
+make -k check
+make tooldir=/usr
+make tooldir=/usr install
+rm -fv /usr/lib/lib{bfd,ctf,ctf-nobfd,gprofng,opcodes,sframe}.a
+
+cd ..
+rm -rf binutils-2.43.1
+##################### gmp-6.3.0 ############################
+tar gmp-6.3.0.tar.xz
+cd gmp-6.3.0
+
+./configure --prefix=/usr \
+--enable-cxx \
+--disable-static \
+--docdir=/usr/share/doc/gmp-6.3.0
+
+make
+make html
+
+make check 2>&1 | tee gmp-check-log
+awk '/# PASS:/{total+=$3} ; END{print total}' gmp-check-log
+echo "At least 199 tests should have passed"
+echo "Hit enter to continue"
+read -r
+make install
+make install-html
