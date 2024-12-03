@@ -57,8 +57,6 @@ make localedata/install-locales
 localedef -i C -f UTF-8 C.UTF-8
 localedef -i ja_JP -f SHIFT_JIS ja_JP.SJIS 2> /dev/null || true
 
-cd ../..
-rm -rf glibc-2.40
 ### configuring glibc
 cat > /etc/nsswitch.conf << "EOF"
 # Begin /etc/nsswitch.conf
@@ -74,3 +72,5 @@ rpc: files
 # End /etc/nsswitch.conf
 EOF
 
+cd ../..
+rm -rf glibc-2.40
