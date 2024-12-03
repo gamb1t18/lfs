@@ -485,6 +485,11 @@ find man -name Makefile.in -exec sed -i 's/groups\.1 / /' {} \;
 find man -name Makefile.in -exec sed -i 's/getspnam\.3 / /' {} \;
 find man -name Makefile.in -exec sed -i 's/passwd\.5 / /' {} \;
 
+sed -e 's:#ENCRYPT_METHOD DES:ENCRYPT_METHOD YESCRYPT:' \
+-e 's:/var/spool/mail:/var/mail:' \
+-e '/PATH=/{s@/sbin:@@;s@/bin:@@}' \
+-i etc/login.defs
+
 touch /usr/bin/passwd
 ./configure --sysconfdir=/etc \
 --disable-static \
@@ -493,7 +498,228 @@ touch /usr/bin/passwd
 --with-group-name-max-length=32
 
 make
-
 make exec_prefix=/usr install
 make -C man install-man
-#### 8.28.2
+pwconv
+grpconv
+mkdir -p /etc/default
+useradd -D --gid 999
+sed -i '/MAIL/s/yes/no/' /etc/default/useradd
+echo "Set password for root"
+passwd root
+cd..
+rm -rf shadow-4.16.0
+#################### gcc-14.2.0 #####################
+tar -xf gcc-14.2.0.tar.gz
+cd gcc-14.2.0
+
+case $(uname -m) in
+x86_64)
+sed -e '/m64=/s/lib64/lib/' \
+-i.orig gcc/config/i386/t-linux64
+;;
+esac
+
+mkdir -v build
+cd build
+
+../configure --prefix=/usr \
+LD=ld \
+--enable-languages=c,c++ \
+--enable-default-pie \
+--enable-default-ssp \
+--enable-host-pie \
+--disable-multilib \
+--disable-bootstrap \
+--disable-fixincludes \
+--with-system-zlib
+
+make
+ulimit -s -H unlimited
+
+sed -e '/cpython/d' -i ../gcc/testsuite/gcc.dg/plugin/plugin.exp
+sed -e 's/no-pic /&-no-pie /' -i ../gcc/testsuite/gcc.target/i386/pr113689-1.c
+sed -e 's/300000/(1|300000)/' -i ../libgomp/testsuite/libgomp.c-c++-common/pr109062.c
+sed -e 's/{ target nonpic } //' \
+-e '/GOTPCREL/d' -i ../gcc/testsuite/gcc.target/i386/fentryname3.c
+
+chown -R tester .
+su tester -c "PATH=$PATH make -k check"
+../contrib/test_summary
+make install
+chown -v -R root:root \
+/usr/lib/gcc/$(gcc -dumpmachine)/14.2.0/include{,-fixed}
+ln -svr /usr/bin/cpp /usr/lib
+ln -sv gcc.1 /usr/share/man/man1/cc.1
+ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/14.2.0/liblto_plugin.so \
+/usr/lib/bfd-plugins/
+
+### toolchain complete, sanity check ##
+echo "Sanity check"
+echo 'int main(){}' > dummy.c
+cc dummy.c -v -Wl,--verbose &> dummy.log
+readelf -l a.out | grep ': /lib'
+echo "output should read \"Requesting program interpreter: /lib64/ld-linux-x86-64.so.2\" "
+echo "hit enter to contiue"
+read -r
+### checks for correct start files
+grep -E -o '/usr/lib.*/S?crt[1in].*succeeded' dummy.log
+echo "This output should read something like \"/usr/lib/gcc/x86_64-pc-linux-gnu/14.2.0/../../../../lib/Scrt1.o succeeded \" "
+echo "Hit enter to continue"
+read -r
+###checks tha compiler looks for correct header files
+grep -B4 '^ /usr/include' dummy.log
+echo "This out put should read \"\#include <...> search starts here: \" "
+echo "/usr/lib/gcc/x86_64-pc-linux-gnu/14.2.0/include"
+echo "/usr/local/include"
+echo "/usr/lib/gcc/x86_64-pc-linux-gnu/14.2.0/include-fixed"
+echo "/usr/include"
+echo "hit enter to contnue"
+read -r
+###checks linker uses correct search paths
+grep 'SEARCH.*/usr/lib' dummy.log |sed 's|; |\n|g'
+echo "This output should read as follows"
+echo "SEARCH_DIR(\"/usr/x86_64-pc-linux-gnu/lib64\")"
+echo "SEARCH_DIR(\"/usr/local/lib64\")"
+echo "SEARCH_DIR(\"/lib64\")"
+eco "SEARCH_DIR(\"/usr/lib64\")"
+echo "SEARCH_DIR(\"/usr/x86_64-pc-linux-gnu/lib\")"
+echo "SEARCH_DIR(\"/usr/local/lib\")"
+echo "SEARCH_DIR(\"/lib\")"
+echo "SEARCH_DIR(\"/usr/lib\");"
+echo "Hit enter to continue"
+read -r
+#####checks for correct libc
+grep "/lib.*/libc.so.6 " dummy.log
+echo "This output should read as follows"
+echo "attempt to open /usr/lib/libc.so.6 succeeded"
+echo "Hit enter to continue"
+read -r
+####checks GCC is user correct dynamic linker
+grep found dummy.log
+echo "Output should read as follows"
+echo "found ld-linux-x86-64.so.2 at /usr/lib/ld-linux-x86-64.so.2"
+echo "Hit enter to continue"
+read -r
+
+rm -v dummy.c a.out dummy.log
+mkdir -pv /usr/share/gdb/auto-load/usr/lib
+mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib
+cd ../..
+rm -rf gcc-14.2.0
+################# ncurses-6.5 ######################
+tar -xzf ncurses-6.5.tar.gz
+cd ncurses-6.5
+
+./configure --prefix=/usr \
+--mandir=/usr/share/man \
+--with-shared \
+--without-debug \
+--without-normal \
+--with-cxx-shared \
+--enable-pc-files \
+--with-pkg-config-libdir=/usr/lib/pkgconfig
+
+make
+make DESTDIR=$PWD/dest install
+install -vm755 dest/usr/lib/libncursesw.so.6.5 /usr/lib
+rm -v dest/usr/lib/libncursesw.so.6.5
+sed -e 's/^#if.*XOPEN.*$/#if 1/' \
+-i dest/usr/include/curses.h
+cp -av dest/* /
+
+for lib in ncurses form panel menu ; do
+ln -sfv lib${lib}w.so /usr/lib/lib${lib}.so
+ln -sfv ${lib}w.pc
+ /usr/lib/pkgconfig/${lib}.pc
+done
+
+ln -sfv libncursesw.so /usr/lib/libcurses.so
+cp -v -R doc -T /usr/share/doc/ncurses-6.5
+
+cd..
+rm -rf ncurses-6.5
+################### sed-4.9 ###################
+tar -xf sed-4.9.tar.xz
+cd sed-4.9
+
+./configure --prefix=/usr
+make
+make html
+
+chown -R tester .
+su tester -c "PATH=$PATH make check"
+make install
+install -d -m755 /usr/share/doc/sed-4.9
+install -m644 doc/sed.html /usr/share/doc/sed-4.9
+
+cd ..
+rm -rf sed-4.9
+############## psmisc-23.7 ##############
+tar -xf   psmisc-23.7.tar.xz
+cd   psmisc-23.7
+
+./configure --prefix=/usr
+make
+make check
+make install
+cd ..
+rm -rf psmisc-23.7
+#################### gettext-0.22.5####################
+tar -xf gettext-0.22.5.tar.xz
+cd gettext-0.22.5
+
+./configure --prefix=/usr \
+--disable-static \
+--docdir=/usr/share/doc/gettext-0.22.5
+
+make
+make check
+make install
+chmod -v 0755 /usr/lib/preloadable_libintl.so
+cd ..
+rm -rf gettext-0.22.5
+#################### bison-3.8.2 #################
+tar -xf bison-3.8.2.tar.xz
+cd bison-3.8.2
+
+./configure --prefix=/usr --docdir=/usr/share/doc/bison-3.8.2
+make
+make check
+make install
+cd ..
+rm -rf bison-3.8.2
+################ grep-3.11 ####################
+tar -xf grep-3.11.tar.xz
+cd grep-3.11
+
+sed -i "s/echo/#echo/" src/egrep.sh
+./configure --prefix=/usr
+make
+make check
+make install
+cd ..
+rm -rf grep-3.11
+########### bash-5.2.32 ###########
+tar -xf bash-5.2.32.tar.xz
+cd bash-5.2.32
+
+./configure --prefix=/usr \
+--without-bash-malloc \
+--with-installed-readline \
+bash_cv_strtold_broken=no \
+--docdir=/usr/share/doc/bash-5.2.32
+
+make
+chown -R tester .
+
+su -s /usr/bin/expect tester << "EOF"
+set timeout -1
+spawn make tests
+expect eof
+lassign [wait] _ _ _ value
+exit $value
+EOF
+
+make install
+exec /usr/bin/bash --login
