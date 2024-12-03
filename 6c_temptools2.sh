@@ -87,7 +87,7 @@ cd texinfo-7.1
  
  ################ util-linux ################################
 
-tar -xf util-linux-2.40.0.tar.xz
+tar -xf util-linux-2.40.2.tar.xz
 cd util-linux-2.40.0
 
 mkdir -pv /var/lib/hwclock
@@ -111,7 +111,7 @@ make
 make install
 
 cd ..
-rm -rf util-linux-2.40.0
+rm -rf util-linux-2.40.2
 
 ############### cleaning up ###############################
 
