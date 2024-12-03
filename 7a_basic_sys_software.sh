@@ -108,3 +108,95 @@ mkdir -pv /etc/ld.so.conf.d
 
 cd ../..
 rm -rf glibc-2.40
+
+############ Zlib-1.3.1 ##################################################
+tar -xzf zlib-1.3.1.tar.gz
+cd zlib-1.3.1
+
+./configure --prefix=/usr
+make
+make check
+make install
+
+rm -fv /usr/lib/libz.a
+cd ..
+rm -rf zlib-1.3.1
+
+####################### Bzip2-1.0.8 #####################################
+
+tar -xf bzip2-1.0.8.tar.gz
+cd bzip2-1.0.8
+
+patch -Np1 -i ../bzip2-1.0.8-install_docs-1.patch
+sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile
+sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile
+make -f Makefile-libbz2_so
+make clean
+make
+make PREFIX=/usr install
+cp -av libbz2.so.* /usr/lib
+ln -sv libbz2.so.1.0.8 /usr/lib/libbz2.so
+cp -v bzip2-shared /usr/bin/bzip2
+
+for i in /usr/bin/{bzcat,bunzip2}; do
+ln -sfv bzip2 $i
+done
+rm -fv /usr/lib/libbz2.a
+cd ..
+rm -rf bzip2-1.0.8
+
+################################## xz-5.6.2 #############################
+
+tar -xf xz-5.6.2.tar.xz
+cd xz-5.6.2
+
+./configure --prefix=/usr \
+--disable-static \
+--docdir=/usr/share/doc/xz-5.6.2
+
+make
+make check
+make install
+
+cd ..
+rm -rf xz-5.6.2
+
+########################### lz4-1.10.0 #######################################
+
+tar -xf lz4-1.10.0.tar.gz
+cd lz4-1.10.0
+
+make BUILD_STATIC=no PREFIX=/usr
+make -j1 check
+make BUILD_STATIC=no PREFIX=/usr install
+
+cd ..
+rm -rf lz4-1.10.0
+
+############################### zstd-1.5.6 ##################################
+
+tar -xzf zstd-1.5.6.tar.gz
+cd zstd-1.5.6
+
+make prefix=/usr
+make check
+make prefix=/usr install
+rm -v /usr/lib/libzstd.a
+
+cd ..
+rm -rf zstd-1.5.6
+
+####################### file-5.45 ####################################
+
+tar file-5.45.tar.xz
+cd file-5.45
+
+./configure --prefix=/usr
+make
+make check
+make install
+
+cd ..
+rm -rf file-5.45
+
+###################
