@@ -23,7 +23,7 @@ cd iana-etc-20240806
 
 cp services protocols /etc
 
-cd ..io
+cd ..
 rm -rf iana-etc-20240806
 
 ################## glibc ####################################
