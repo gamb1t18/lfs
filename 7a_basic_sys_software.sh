@@ -198,5 +198,61 @@ make install
 
 cd ..
 rm -rf file-5.45
+################### readline-8.2.13 #########################################
+tar -xzf readline-8.2.13.tar.gz
+cd readline-8.2.13
 
-###################
+sed -i '/MV.*old/d' Makefile.in
+sed -i '/{OLDSUFF}/c:' support/shlib-install
+sed -i 's/-Wl,-rpath,[^ ]*//' support/shobj-conf
+
+./configure --prefix=/usr \
+--disable-static \
+--with-curses \
+--docdir=/usr/share/doc/readline-8.2.13
+
+make SHLIB_LIBS="-lncursesw"
+make SHLIB_LIBS="-lncursesw" install
+install -v -m644 doc/*.{ps,pdf,html,dvi} /usr/share/doc/readline-8.2.13
+
+cd ..
+rm -rf readline-8.2.13
+################################# m4-1.4.19 ###############################
+tar -xf m4-1.4.19.tar.xz
+cd m4-1.4.19
+
+./configure --prefix=/usr
+make
+make check
+make install
+
+cd ..
+rm -rf m4-1.4.19
+########################## bc-6.7.6 ############################
+tar -xf bc-6.7.6.tar.xz
+cd bc-6.7.6
+
+CC=gcc ./configure --prefix=/usr -G -O3 -r
+make
+make test
+make install
+
+cd ..
+rm -rf bc-6.7.6
+########################### flex-2.6.4 #############################
+tar -xzf flex-2.6.4.tar.gz
+cd flex-2.6.4
+
+./configure --prefix=/usr \
+--docdir=/usr/share/doc/flex-2.6.4 \
+--disable-static
+
+make
+make check
+make install
+
+ln -sv flex /usr/bin/lex
+ln -sv flex.1 /usr/share/man/man1/lex.1
+
+cd ..
+rm -rf flex-2.4.6
