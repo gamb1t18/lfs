@@ -53,7 +53,7 @@ sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile ##skips an o
 make install
 sed '/RTLDLIST=/s@/usr@@g' -i /usr/bin/ldd ## fixes a path to ldd
  ## install locales
-make localedata/install-;locales
+make localedata/install-locales
 localedef -i C -f UTF-8 C.UTF-8
 localedef -i ja_JP -f SHIFT_JIS ja_JP.SJIS 2> /dev/null || true
 
