@@ -393,3 +393,108 @@ echo "Hit enter to continue"
 read -r
 make install
 make install-html
+
+cd ..
+rm -rf gmp-6.3.0
+####################### mpfr-4.2.1 #################
+tar -xf mpfr-4.2.1.tar.xz
+cd mpfr-4.2.1
+
+./configure --prefix=/usr \
+--disable-static \
+--enable-thread-safe \
+--docdir=/usr/share/doc/mpfr-4.2.1
+
+make
+make html
+make check
+make install
+make install-html
+cd..
+rm -rf mpfr-4.2.1
+############################ mpc-1.3.1 ##################
+tar mpc-1.3.1.tar.xz
+cd mpc-1.3.1
+./configure --prefix=/usr \
+--disable-static \
+--docdir=/usr/share/doc/mpc-1.3.1
+
+make
+make html
+make check
+make install
+make install-html
+cd ..
+rm -rf mpc-1.3.1
+################# attr-2.5.2 #########################
+tar -xzf attr-2.5.2.tar.gz
+cd attr-2.5.2
+
+./configure --prefix=/usr \
+--disable-static \
+--sysconfdir=/etc \
+--docdir=/usr/share/doc/attr-2.5.2
+
+make
+make check
+make install
+cd ..
+rm -rf attr-2.5.2
+#################### acl-2.3.2 ############################
+tar -xf acl-2.3.2.tar.xz
+cd acl-2.3.2
+
+./configure --prefix=/usr \
+--disable-static \
+--docdir=/usr/share/doc/acl-2.3.2
+
+make
+make install
+cd ..
+rm -rf acl-2.3.2
+##################### libcap-2.70 ########################
+tar -xf libcap-2.70.tar.xz
+cd libcap-2.70
+
+sed -i '/install -m.*STA/d' libcap/Makefile
+make prefix=/usr lib=lib
+make test
+make prefix=/usr lib=lib install
+cd..
+rm -rf licap-2.70
+############################libxcrypt-4.4.36 ##################
+tar -xf  libxcrypt-4.4.36.tar.xz 
+cd  libxcrypt-4.4.36
+
+./configure --prefix=/usr \
+--enable-hashes=strong,glibc \
+--enable-obsolete-api=no \
+--disable-static \
+--disable-failure-tokens
+
+make
+make check
+make install
+cd ..
+rm -rf libxcrypt-4.4.36
+####################### shadow-4.16.0 ############################
+tar shadow-4.16.0.tar.xz
+cd shadow-4.16.0
+
+sed -i 's/groups$(EXEEXT) //' src/Makefile.in
+find man -name Makefile.in -exec sed -i 's/groups\.1 / /' {} \;
+find man -name Makefile.in -exec sed -i 's/getspnam\.3 / /' {} \;
+find man -name Makefile.in -exec sed -i 's/passwd\.5 / /' {} \;
+
+touch /usr/bin/passwd
+./configure --sysconfdir=/etc \
+--disable-static \
+--with-{b,yes}crypt \
+--without-libbsd \
+--with-group-name-max-length=32
+
+make
+
+make exec_prefix=/usr install
+make -C man install-man
+#### 8.28.2
