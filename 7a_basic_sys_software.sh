@@ -86,5 +86,25 @@ cp -v zone.tab zone1970.tab iso3166.tab $ZONEINFO
 zic -d $ZONEINFO -p America/New_York
 unset ZONEINFO
 
+tzselect #time zone select
+2 #2 for Americas
+49 #49 for U.S.
+5 #timezone selection
+1 # confirmation of timezone
+##below link is unique to parameters from last three lines
+ln -sfv /usr/share/zoneinfo/America/Indiana/Indianapolis/etc/localtime
+
+cat > /etc/ld.so.conf << "EOF"
+# Begin /etc/ld.so.conf
+/usr/local/lib
+/opt/lib
+EOF
+
+cat >> /etc/ld.so.conf << "EOF"
+# Add an include directory
+include /etc/ld.so.conf.d/*.conf
+EOF
+mkdir -pv /etc/ld.so.conf.d
+
 cd ../..
 rm -rf glibc-2.40
