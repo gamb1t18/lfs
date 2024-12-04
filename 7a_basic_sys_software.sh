@@ -460,7 +460,7 @@ make prefix=/usr lib=lib
 make test
 make prefix=/usr lib=lib install
 cd ..
-rm -rf licap-2.70
+rm -rf libcap-2.70
 ############################libxcrypt-4.4.36 ##################
 tar -xf  libxcrypt-4.4.36.tar.xz 
 cd  libxcrypt-4.4.36
