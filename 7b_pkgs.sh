@@ -521,8 +521,136 @@ make install &&
 mv -v /etc/bash_completion.d/grub /usr/share/bash-completion/completions
 cd ..
 rm -rf grub-2.12
+############### end of Grub for UEFI ####
+################## gzip 1.13 ######################
+tar -xf gzip-1.13.tar.xz 
+cd gzip-1.13
 
+./configure --prefix=/usr
 
+make
+make check
+make install
+cd ..
+rm -rf gzip-1.13
+#################################iproute2-6.10.0######################
+tar -xf iproute2-6.10.0.tar.xz
+cd iproute2-6.10.0
 
+sed -i /ARPD/d Makefile
+rm -fv man/man8/arpd.8
+make NETNS_RUN_DIR=/run/netns
+make SBINDIR=/usr/sbin install
+mkdir -pv /usr/share/doc/iproute2-6.10.0
+cp -v COPYING README* /usr/share/doc/iproute2-6.10.0
+cd ..
+rm -rf iproute2-6.10.0
+######################kbd 2.6.4 ###############################
+tar -xf kbd-2.6.4.tar.xz
+cd kbd-2.6.4
 
+patch -Np1 -i ../kbd-2.6.4-backspace-1.patch
+sed -i '/RESIZECONS_PROGS=/s/yes/no/' configure
+sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in
 
+./configure --prefix=/usr --disable-vlock
+
+make
+make check
+make install
+cp -R -v docs/doc -T /usr/share/doc/kbd-2.6.4
+cd ..
+rm -rf kbd-2.6.4
+##########libpipeline-1.5.7#################################
+tar -xzf libpipeline-1.5.7.tar.gz
+cd libpipeline-1.5.7
+
+./configure --prefix=/usr
+make
+make check
+make install
+cd ..
+rm -rf libpipeline-1.5.7
+############ make 4.4.1 ##############################
+tar -xzf make-4.4.1.tar.gz
+cd make-4.4.1
+
+./configure --prefix=/usr
+make
+chown -R tester .
+su tester -c "PATH=$PATH make check"
+make install
+##############patch-2.7.6 ##########################################
+tar -xf patch-2.7.6.tar.xz
+cd patch-2.7.6
+./configure --prefix=/usr
+make
+make check
+make install
+cd ..
+rm -rf patch-2.7.6
+################# tar 1.35 ##########################################
+tar -xf tar-1.35.tar.xz
+cd tar-1.35
+
+FORCE_UNSAFE_CONFIGURE=1 \
+./configure --prefix=/usr
+
+make
+make check
+make install
+make -C doc install-html docdir=/usr/share/doc/tar-1.35
+cd ..
+rm -rf tar-1.35
+#####################texinfo 7.1#########################
+tar -xf texinfo-7.1.tar.xz
+cd texinfo-7.1
+
+./configure --prefix=/usr
+
+make
+make check
+make install
+make TEXMF=/usr/share/texmf install-tex
+cd ..
+rm -rf texinfo-7.1
+################# vim ########################################
+tar -xzf vim-9.1.0660.tar.gz
+cd vim-9.1.0660
+
+echo '#define SYS_VIMRC_FILE "/etc/vimrc"' >> src/feature.h
+./configure --prefix=/usr
+
+make
+chown -R tester .
+su tester -c "TERM=xterm-256color LANG=en_US.UTF-8 make -j1 test" \
+&> vim-test.log
+make install
+
+ln -sv vim /usr/bin/vi
+for L in /usr/share/man/{,*/}man1/vim.1; do
+ln -sv vim.1 $(dirname $L)/vi.1
+done
+
+ln -sv ../vim/vim91/doc /usr/share/doc/vim-9.1.0660
+
+cat > /etc/vimrc << "EOF"
+" Begin /etc/vimrc
+" Ensure defaults are set before customizing settings, not after
+source $VIMRUNTIME/defaults.vim
+let skip_defaults_vim=1
+
+set nocompatible
+set backspace=2
+set mouse=
+syntax on
+if (&term == "xterm") || (&term == "putty")
+set background=dark
+endif
+
+" End /etc/vimrc
+EOF
+
+vim -c ':options'
+cd ..
+rm -rf vim-9.1.0660
