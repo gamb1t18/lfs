@@ -91,7 +91,7 @@ tzselect #time zone select
 5 #timezone selection
 1 # confirmation of timezone
 ##below link is unique to parameters from last three lines
-ln -sfv /usr/share/zoneinfo/America/Indiana/Indianapolis/etc/localtime
+ln -sfv /usr/share/zoneinfo/America/Indiana/Indianapolis /etc/localtime
 
 cat > /etc/ld.so.conf << "EOF"
 # Begin /etc/ld.so.conf
@@ -374,7 +374,7 @@ rm -fv /usr/lib/lib{bfd,ctf,ctf-nobfd,gprofng,opcodes,sframe}.a
 cd ..
 rm -rf binutils-2.43.1
 ##################### gmp-6.3.0 ############################
-tar gmp-6.3.0.tar.xz
+tar -xf gmp-6.3.0.tar.xz
 cd gmp-6.3.0
 
 ./configure --prefix=/usr \
@@ -412,7 +412,7 @@ make install-html
 cd ..
 rm -rf mpfr-4.2.1
 ############################ mpc-1.3.1 ##################
-tar mpc-1.3.1.tar.xz
+tar -xf mpc-1.3.1.tar.xz
 cd mpc-1.3.1
 ./configure --prefix=/usr \
 --disable-static \
@@ -477,7 +477,7 @@ make install
 cd ..
 rm -rf libxcrypt-4.4.36
 ####################### shadow-4.16.0 ############################
-tar shadow-4.16.0.tar.xz
+tar -xf shadow-4.16.0.tar.xz
 cd shadow-4.16.0
 
 sed -i 's/groups$(EXEEXT) //' src/Makefile.in
@@ -554,7 +554,7 @@ ln -sv gcc.1 /usr/share/man/man1/cc.1
 ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/14.2.0/liblto_plugin.so \
 /usr/lib/bfd-plugins/
 
-### toolchain complete, sanity check ##
+### toolchain complete, sanity check ###############
 echo "Sanity check"
 echo 'int main(){}' > dummy.c
 cc dummy.c -v -Wl,--verbose &> dummy.log
@@ -582,7 +582,7 @@ echo "This output should read as follows"
 echo "SEARCH_DIR(\"/usr/x86_64-pc-linux-gnu/lib64\")"
 echo "SEARCH_DIR(\"/usr/local/lib64\")"
 echo "SEARCH_DIR(\"/lib64\")"
-eco "SEARCH_DIR(\"/usr/lib64\")"
+echo "SEARCH_DIR(\"/usr/lib64\")"
 echo "SEARCH_DIR(\"/usr/x86_64-pc-linux-gnu/lib\")"
 echo "SEARCH_DIR(\"/usr/local/lib\")"
 echo "SEARCH_DIR(\"/lib\")"
@@ -628,7 +628,7 @@ sed -e 's/^#if.*XOPEN.*$/#if 1/' \
 -i dest/usr/include/curses.h
 cp -av dest/* /
 
-for lib in ncurses form panel menu ; do
+for lib in ncurses form panel menu; do
 ln -sfv lib${lib}w.so /usr/lib/lib${lib}.so
 ln -sfv ${lib}w.pc
  /usr/lib/pkgconfig/${lib}.pc
