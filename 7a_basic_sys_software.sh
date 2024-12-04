@@ -367,7 +367,6 @@ cd binutils-2.43.1
 
 make tooldir=/usr
 make -k check
-make tooldir=/usr
 make tooldir=/usr install
 rm -fv /usr/lib/lib{bfd,ctf,ctf-nobfd,gprofng,opcodes,sframe}.a
 
