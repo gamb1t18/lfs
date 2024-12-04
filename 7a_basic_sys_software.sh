@@ -187,7 +187,7 @@ rm -rf zstd-1.5.6
 
 ####################### file-5.45 ####################################
 
-tar file-5.45.tar.xz
+tar -xf file-5.45.tar.xz
 cd file-5.45
 
 ./configure --prefix=/usr
@@ -293,7 +293,7 @@ tar -xf ../tcl8.6.14-html.tar.gz --strip-components=1
 mkdir -v -p /usr/share/doc/tcl-8.6.14
 cp -v -r ./html/* /usr/share/doc/tcl-8.6.14
 
-cd ..
+cd /sources
 rm -rf tcl8.6.14-src
 ###################### expect-5.45.4 ########################
 tar -xzf expect5.45.4.tar.gz
@@ -348,7 +348,7 @@ make install
 ln -sv pkgconf /usr/bin/pkg-config
 ln -sv pkgconf.1 /usr/share/man/man1/pkg-config.1
 
-cd..
+cd ..
 rm -rf pkgconf-2.3.0
 ################### binutils-2.43.1 ######################
 tar -xf binutils-2.43.1.tar.xz
@@ -409,7 +409,7 @@ make html
 make check
 make install
 make install-html
-cd..
+cd ..
 rm -rf mpfr-4.2.1
 ############################ mpc-1.3.1 ##################
 tar mpc-1.3.1.tar.xz
@@ -459,7 +459,7 @@ sed -i '/install -m.*STA/d' libcap/Makefile
 make prefix=/usr lib=lib
 make test
 make prefix=/usr lib=lib install
-cd..
+cd ..
 rm -rf licap-2.70
 ############################libxcrypt-4.4.36 ##################
 tar -xf  libxcrypt-4.4.36.tar.xz 
@@ -507,7 +507,7 @@ useradd -D --gid 999
 sed -i '/MAIL/s/yes/no/' /etc/default/useradd
 echo "Set password for root"
 passwd root
-cd..
+cd ..
 rm -rf shadow-4.16.0
 #################### gcc-14.2.0 #####################
 tar -xf gcc-14.2.0.tar.gz
@@ -637,7 +637,7 @@ done
 ln -sfv libncursesw.so /usr/lib/libcurses.so
 cp -v -R doc -T /usr/share/doc/ncurses-6.5
 
-cd..
+cd ..
 rm -rf ncurses-6.5
 ################### sed-4.9 ###################
 tar -xf sed-4.9.tar.xz
