@@ -409,12 +409,119 @@ make check
 make install
 cd ..
 rm -rf groff-1.23.0
-################# grub-2.12 ######################################
+################# grub-2.12 FOR UEFI ######################################
+#### start with dependencies
 mkdir blfs
 cd blfs
 
-tar -xf grub-2.12.tar.xz
+####freetype ######
+wget https://downloads.sourceforge.net/freetype/freetype-2.13.3.tar.xz
+wget https://downloads.sourceforge.net/freetype/freetype-doc-2.13.3.tar.xz
+ 
+echo "checking md5sum"
+md5sum *
+echo "hit enter if md5sum is good"
+read -r
+
+tar -xf freetype-2.13.3.tar.xz
+cd freetype-2.13.3
+tar -xf ../freetype-doc-2.13.3.tar.xz --strip-components=2 -C docs
+sed -ri "s:.*(AUX_MODULES.*valid):\1:" modules.cfg &&
+sed -r "s:.*(#.*SUBPIXEL_RENDERING) .*:\1:" \
+    -i include/freetype/config/ftoption.h  &&
+
+./configure --prefix=/usr --enable-freetype-config --disable-static &&
+make
+make install
+cp -v -R docs -T /usr/share/doc/freetype-2.13.3 &&
+rm -v /usr/share/doc/freetype-2.13.3/freetype-config.1
+cd ..
+rm -rf freetype-2.13.3
+############## popt for efi bootlader #################
+wget http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.19.tar.gz
+md5sum popt-19.tar.gz
+tar -xzf popt-1.19.tar.gz
+cd popt-1.19
+
+./configure --prefix=/usr --disable-static &&
+
+make
+make check
+make install
+cd ..
+rm -rf popt-1.19
+###################mandoc-1.14.6 ################################
+wget https://mandoc.bsd.lv/snapshots/mandoc-1.14.6.tar.gz
+md5sum mandoc-1.14.6.tar.gz
+echo "Hit enter if md5sum is good: f0adf24e8fdef5f3e332191f653e422a"
+read -r
+tar -xzf mandoc-1.14.6.tar.gz
+cd mandoc-1.14.6
+
+./configure &&
+
+make mandoc
+make regress
+echo "check test, hit enter to continue"
+read -r
+
+install -vm755 mandoc   /usr/bin &&
+install -vm644 mandoc.1 /usr/share/man/man1
+cd..
+rm -rf mandoc-1.14.6
+################ efivar-39 ##############
+wget https://github.com/rhboot/efivar/archive/39/efivar-39.tar.gz
+md5sum efivar-39.tar.gz
+echo "Hit enter if md5sum is good : a8fc3e79336cd6e738ab44f9bc96a5aa "
+read -r
+
+tar -xzf efivar-39.tar.gz
+cd efivar-39
+make
+make install LIBDIR=/usr/lib
+cd ..
+rm -rf efivar-39
+
+######### efibootmgr-18 #################
+wget https://github.com/rhboot/efibootmgr/archive/18/efibootmgr-18.tar.gz
+md5sum efibootmgr-18.tar.gz
+echo "hit enter if md5sum is good: e170147da25e1d5f72721ffc46fe4e06"
+read -r
+tar -xzf efibootmgr-18.tar.gz
+cd efibootmgr-18
+
+make EFIDIR=LFS EFI_LOADER=grubx64.efi
+mkdir /boot/efi
+mount /dev/nvme0n1p2 /boot
+mount /dev/nvme0n1p1 /boot/efi
+make install EFIDIR=LFS
+cd ..
+rm -rf efibootmgr-18
+#################### grub 2.12 ########################
+wget https://unifoundry.com/pub/unifont/unifont-15.1.05/font-builds/unifont-15.1.05.pcf.gz
+md5sum *
+echo "md5sum check: da47e9c7a2cec3b68a0fad5d2a341dcc"
+echo "hit enter of 5d5sum is good: 60c564b1bdc39d8e43b3aab4bc0fb140"
+read -r
+tar -xf ../grub-2.12.tar.xz
 cd grub-2.12
+mkdir -pv /usr/share/fonts/unifont &&
+gunzip -c ../unifont-15.1.05.pcf.gz > /usr/share/fonts/unifont/unifont.pcf
+echo depends bli part_gpt > grub-core/extra_deps.lst
+./configure --prefix=/usr        \
+            --sysconfdir=/etc    \
+            --disable-efiemu     \
+            --enable-grub-mkfont \
+            --with-platform=efi  \
+            --target=x86_64      \
+            --disable-werror     &&
+unset TARGET_CC &&
+make
+make install &&
+mv -v /etc/bash_completion.d/grub /usr/share/bash-completion/completions
+cd ..
+rm -rf grub-2.12
+
 
 
 
