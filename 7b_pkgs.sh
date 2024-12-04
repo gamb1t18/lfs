@@ -14,7 +14,7 @@ rm -fv /usr/lib/libltdl.a
 cd ..
 rm -rf libtool-2.4.7
 ################ gdbm-1.24 ######################################
-tar -xf gdbm-1.24-tar.xz
+tar -xf gdbm-1.24.tar.xz
 cd gdbm-1.24
 
 ./configure --prefix=/usr \
