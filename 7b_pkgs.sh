@@ -2,9 +2,9 @@
 cd ..
 rm -rf bash-5.2.32
 
-################## libtools-2.4.7 #############################
-tar -xf libtools-2.4.7.tar.xz
-cd libtools-2.4.7
+################## libtool-2.4.7 #############################
+tar -xf libtool-2.4.7.tar.xz
+cd libtool-2.4.7
 
 ./configure --prefix=/usr
 make
@@ -12,10 +12,10 @@ make -k check
 make install
 rm -fv /usr/lib/libltdl.a
 cd ..
-rm -rf libtools-2.4.7
-################ gdbm-1.2.4 ######################################
-tar -xf gdbm-1.2.4-tar.xz
-cd gdbm-1.2.4
+rm -rf libtool-2.4.7
+################ gdbm-1.24 ######################################
+tar -xf gdbm-1.24-tar.xz
+cd gdbm-1.24
 
 ./configure --prefix=/usr \
 --disable-static \
@@ -26,9 +26,9 @@ make check
 make install
 
 cd ..
-rm -rf gdbm-1.2.4
+rm -rf gdbm-1.24
 ################# gperf-3.1 ######################
-tar -xf gperf-3.1.tar.xz
+tar -xzf gperf-3.1.tar.gz
 cd gperf-3.1
 
 ./configure --prefix=/usr --docdir=/usr/share/doc/gperf-3.1
