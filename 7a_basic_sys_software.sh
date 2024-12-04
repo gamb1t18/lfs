@@ -254,7 +254,7 @@ ln -sv flex /usr/bin/lex
 ln -sv flex.1 /usr/share/man/man1/lex.1
 
 cd ..
-rm -rf flex-2.4.6
+rm -rf flex-2.6.4
 ############################ tcl-8.6.14 ########################
 tar -xzf tcl8.6.14-src.tar.gz
 cd tcl8.6.14-src
