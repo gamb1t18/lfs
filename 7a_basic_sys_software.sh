@@ -252,12 +252,12 @@ make install
 
 ln -sv flex /usr/bin/lex
 ln -sv flex.1 /usr/share/man/man1/lex.1
-
+tar -xzf tcl8.6.14-src.tar.gz
 cd ..
 rm -rf flex-2.6.4
 ############################ tcl-8.6.14 ########################
 tar -xzf tcl8.6.14-src.tar.gz
-cd tcl8.6.14-src
+cd tcl8.6.14
 
 SRCDIR=$(pwd)
 cd unix
@@ -294,7 +294,7 @@ mkdir -v -p /usr/share/doc/tcl-8.6.14
 cp -v -r ./html/* /usr/share/doc/tcl-8.6.14
 
 cd /sources
-rm -rf tcl8.6.14-src
+rm -rf tcl8.6.14
 ###################### expect-5.45.4 ########################
 tar -xzf expect5.45.4.tar.gz
 cd expect5.45.4
