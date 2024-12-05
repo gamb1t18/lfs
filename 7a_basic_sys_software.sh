@@ -604,9 +604,11 @@ read -r
 rm -v dummy.c a.out dummy.log
 mkdir -pv /usr/share/gdb/auto-load/usr/lib
 mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib
-cd ../..
+cd /sources
 rm -rf gcc-14.2.0
 ################# ncurses-6.5 ######################
+echo "starting ncurses, hit enter to continue"
+read -r
 tar -xzf ncurses-6.5.tar.gz
 cd ncurses-6.5
 
