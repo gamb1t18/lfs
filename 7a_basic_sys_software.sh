@@ -411,7 +411,7 @@ make install-html
 cd ..
 rm -rf mpfr-4.2.1
 ############################ mpc-1.3.1 ##################
-tar -xf mpc-1.3.1.tar.xz
+tar -xzf mpc-1.3.1.tar.gz
 cd mpc-1.3.1
 ./configure --prefix=/usr \
 --disable-static \
@@ -655,7 +655,7 @@ install -m644 doc/sed.html /usr/share/doc/sed-4.9
 cd ..
 rm -rf sed-4.9
 ############## psmisc-23.7 ##############
-tar -xf   psmisc-23.7.tar.xz
+tar -xf psmisc-23.7.tar.xz
 cd   psmisc-23.7
 
 ./configure --prefix=/usr
@@ -700,7 +700,7 @@ make install
 cd ..
 rm -rf grep-3.11
 ########### bash-5.2.32 ###########
-tar -xf bash-5.2.32.tar.xz
+tar -xzf bash-5.2.32.tar.gz
 cd bash-5.2.32
 
 ./configure --prefix=/usr \
