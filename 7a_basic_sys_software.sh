@@ -187,7 +187,7 @@ rm -rf zstd-1.5.6
 
 ####################### file-5.45 ####################################
 
-tar -xf file-5.45.tar.xz
+tar -xzf file-5.45.tar.gz
 cd file-5.45
 
 ./configure --prefix=/usr
