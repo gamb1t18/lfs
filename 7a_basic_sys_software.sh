@@ -86,10 +86,10 @@ zic -d $ZONEINFO -p America/New_York
 unset ZONEINFO
 
 tzselect #time zone select
-2 #2 for Americas
-49 #49 for U.S.
-5 #timezone selection
-1 # confirmation of timezone
+#2 #2 for Americas
+#49 #49 for U.S.
+#5 #timezone selection
+#1 # confirmation of timezone
 ##below link is unique to parameters from last three lines
 ln -sfv /usr/share/zoneinfo/America/Indiana/Indianapolis /etc/localtime
 
