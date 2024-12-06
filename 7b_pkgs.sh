@@ -415,13 +415,6 @@ rm -rf groff-1.23.0
 #cd blfs   ###### may be unnecessary to create this directory
 
 ####freetype ######
-wget https://downloads.sourceforge.net/freetype/freetype-2.13.3.tar.xz
-wget https://downloads.sourceforge.net/freetype/freetype-doc-2.13.3.tar.xz
- 
-echo "checking md5sum"
-md5sum *
-echo "hit enter if md5sum is good"
-read -r
 
 tar -xf freetype-2.13.3.tar.xz
 cd freetype-2.13.3
@@ -438,8 +431,6 @@ rm -v /usr/share/doc/freetype-2.13.3/freetype-config.1
 cd /sources
 rm -rf freetype-2.13.3
 ############## popt for efi bootlader #################
-wget http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.19.tar.gz
-md5sum popt-19.tar.gz
 tar -xzf popt-1.19.tar.gz
 cd popt-1.19
 
@@ -451,10 +442,6 @@ make install
 cd /sources
 rm -rf popt-1.19
 ###################mandoc-1.14.6 ################################
-wget https://mandoc.bsd.lv/snapshots/mandoc-1.14.6.tar.gz
-md5sum mandoc-1.14.6.tar.gz
-echo "Hit enter if md5sum is good: f0adf24e8fdef5f3e332191f653e422a"
-read -r
 tar -xzf mandoc-1.14.6.tar.gz
 cd mandoc-1.14.6
 
@@ -470,23 +457,13 @@ install -vm644 mandoc.1 /usr/share/man/man1
 cd /sources
 rm -rf mandoc-1.14.6
 ################ efivar-39 ##############
-wget https://github.com/rhboot/efivar/archive/39/efivar-39.tar.gz
-md5sum efivar-39.tar.gz
-echo "Hit enter if md5sum is good : a8fc3e79336cd6e738ab44f9bc96a5aa "
-read -r
-
 tar -xzf efivar-39.tar.gz
 cd efivar-39
 make
 make install LIBDIR=/usr/lib
 cd /sources
 rm -rf efivar-39
-
-######### efibootmgr-18 #################
-wget https://github.com/rhboot/efibootmgr/archive/18/efibootmgr-18.tar.gz
-md5sum efibootmgr-18.tar.gz
-echo "hit enter if md5sum is good: e170147da25e1d5f72721ffc46fe4e06"
-read -r
+######### efibootmgr-18 #############################################
 tar -xzf efibootmgr-18.tar.gz
 cd efibootmgr-18
 
@@ -498,11 +475,6 @@ make install EFIDIR=LFS
 cd /sources
 rm -rf efibootmgr-18
 #################### grub 2.12 ########################
-wget https://unifoundry.com/pub/unifont/unifont-15.1.05/font-builds/unifont-15.1.05.pcf.gz
-md5sum *
-echo "md5sum check: da47e9c7a2cec3b68a0fad5d2a341dcc"
-echo "hit enter of 5d5sum is good: 60c564b1bdc39d8e43b3aab4bc0fb140"
-read -r
 tar -xf grub-2.12.tar.xz  ### was ../grub-2.12.tar.xz
 cd grub-2.12
 mkdir -pv /usr/share/fonts/unifont &&
