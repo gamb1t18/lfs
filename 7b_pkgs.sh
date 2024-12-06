@@ -14,7 +14,7 @@ rm -fv /usr/lib/libltdl.a
 cd ..
 rm -rf libtool-2.4.7
 ################ gdbm-1.24 ######################################
-tar -xf gdbm-1.24.tar.xz
+tar -xzf gdbm-1.24.tar.gz
 cd gdbm-1.24
 
 ./configure --prefix=/usr \
@@ -112,7 +112,7 @@ unset BUILD_ZLIB BUILD_BZIP2
 cd ..
 rm -rf perl-5.40.0
 ################## xml parser-2.47 ########
-tar -xf XML-Parser-2.47.tar.gz
+tar -xzf XML-Parser-2.47.tar.gz
 cd XML-Parser-2.47
 
 perl Makefile.PL
@@ -207,10 +207,10 @@ make -C libelf install
 install -vm644 config/libelf.pc /usr/lib/pkgconfig
 rm /usr/lib/libelf.a
 
-cd ..
+cd /sources
 rm -rf elfutils-0.191
 ################### libffi-3.4.6 #########################
-tar -xf   libffi-3.4.6.tar.gz 
+tar -xzf   libffi-3.4.6.tar.gz 
 cd   libffi-3.4.6
 
 ./configure --prefix=/usr \
@@ -411,8 +411,8 @@ cd ..
 rm -rf groff-1.23.0
 ################# grub-2.12 FOR UEFI ######################################
 #### start with dependencies
-mkdir blfs
-cd blfs
+#mkdir blfs   ###### may be unnecessary to create this directory
+#cd blfs   ###### may be unnecessary to create this directory
 
 ####freetype ######
 wget https://downloads.sourceforge.net/freetype/freetype-2.13.3.tar.xz
@@ -503,7 +503,7 @@ md5sum *
 echo "md5sum check: da47e9c7a2cec3b68a0fad5d2a341dcc"
 echo "hit enter of 5d5sum is good: 60c564b1bdc39d8e43b3aab4bc0fb140"
 read -r
-tar -xf ../grub-2.12.tar.xz
+tar -xf grub-2.12.tar.xz  ### was ../grub-2.12.tar.xz
 cd grub-2.12
 mkdir -pv /usr/share/fonts/unifont &&
 gunzip -c ../unifont-15.1.05.pcf.gz > /usr/share/fonts/unifont/unifont.pcf
@@ -580,6 +580,8 @@ make
 chown -R tester .
 su tester -c "PATH=$PATH make check"
 make install
+cd..
+rm -rf make-4.4.1
 ##############patch-2.7.6 ##########################################
 tar -xf patch-2.7.6.tar.xz
 cd patch-2.7.6
@@ -742,7 +744,7 @@ rm /usr/share/man/man*/systemd*
 unset udev_helpers
 udev-hwdb update
 
-cd ../..
+cd /sources
 rm -rf systemd-256.4
 ################### man db 2.12.1 ###########################
 tar -xf man-db-2.12.1.tar.xz
@@ -838,7 +840,7 @@ makeinfo -o
 install -v -m644 doc/com_err.info /usr/share/info
 install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info
 
-cd ../..
+cd /sources
 rm -rf e2fsprogs-1.47.1
 ################## sysklogd-2.6.1 #############################
 tar -xzf sysklogd-2.6.1.tar.gz
