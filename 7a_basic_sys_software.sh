@@ -332,7 +332,7 @@ make install
 install -v -dm755 /usr/share/doc/dejagnu-1.6.3
 install -v -m644 doc/dejagnu.{html,txt} /usr/share/doc/dejagnu-1.6.3
 
-cd ..
+cd /sources
 rm -rf dejagnu-1.6.3
 #################### pkgconf-2.3.0 ################################
 tar -xf pkgconf-2.3.0.tar.xz
@@ -461,8 +461,8 @@ make prefix=/usr lib=lib install
 cd ..
 rm -rf libcap-2.70
 ############################libxcrypt-4.4.36 ##################
-tar -xf  libxcrypt-4.4.36.tar.xz 
-cd  libxcrypt-4.4.36
+tar -xf libxcrypt-4.4.36.tar.xz 
+cd libxcrypt-4.4.36
 
 ./configure --prefix=/usr \
 --enable-hashes=strong,glibc \
