@@ -510,10 +510,10 @@ useradd -D --gid 999
 sed -i '/MAIL/s/yes/no/' /etc/default/useradd
 echo "Set password for root"
 passwd root
-cd ..
+cd /source
 rm -rf shadow-4.16.0
 #################### gcc-14.2.0 #####################
-tar -xf gcc-14.2.0.tar.gz
+tar -xf gcc-14.2.0.tar.xz
 cd gcc-14.2.0
 
 case $(uname -m) in
