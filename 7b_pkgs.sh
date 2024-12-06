@@ -11,7 +11,7 @@ make
 make -k check
 make install
 rm -fv /usr/lib/libltdl.a
-cd ..
+cd /sources
 rm -rf libtool-2.4.7
 ################ gdbm-1.24 ######################################
 tar -xzf gdbm-1.24.tar.gz
@@ -25,7 +25,7 @@ make
 make check
 make install
 
-cd ..
+cd /sources
 rm -rf gdbm-1.24
 ################# gperf-3.1 ######################
 tar -xzf gperf-3.1.tar.gz
@@ -35,7 +35,7 @@ cd gperf-3.1
 make
 make -j1 check
 make install
-cd ..
+cd /sources
 rm -rf gperf-3.1
 ################ expat-2.6.2 ###################
 tar -xf expat-2.6.2.tar.xz
@@ -49,7 +49,7 @@ make
 make check
 make install
 install -v -m644 doc/*.{html,css} /usr/share/doc/expat-2.6.2
-cd ..
+cd /sources
 rm -rf expat-2.6.2
 ######################## inetutils-2.5 ########
 tar -xf inetutils-2.5.tar.xz
@@ -71,7 +71,7 @@ make
 make check
 make install
 mv -v /usr/{,s}bin/ifconfig
-cd ..
+cd /sources
 rm -rf inetutils-2.5
 ################### less-661 ##################
 tar -xzf less-661.tar.gz
@@ -81,7 +81,7 @@ cd less-661
 make
 make check
 make install
-cd ..
+cd /sources
 rm -rf less-661
 ################## perl-5.40.0 ####################
 tar -xf perl-5.40.0.tar.xz
@@ -109,7 +109,7 @@ make
 TEST_JOBS=$(nproc) make test_harness
 make install
 unset BUILD_ZLIB BUILD_BZIP2
-cd ..
+cd /sources
 rm -rf perl-5.40.0
 ################## xml parser-2.47 ########
 tar -xzf XML-Parser-2.47.tar.gz
@@ -119,7 +119,7 @@ perl Makefile.PL
 make
 make test
 make install
-cd ..
+cd /sources
 rm -rf XML-Parser-2.47
 #################intitool-0.51.0 ##################
 tar -xzf intltool-0.51.0.tar.gz
@@ -131,7 +131,7 @@ make
 make check
 make install
 install -v -Dm644 doc/I18N-HOWTO /usr/share/doc/intltool-0.51.0/I18N-HOWTO
-cd ..
+cd /sources
 rm -rf intltool-0.51.0
 ################# autoconf-2.72 ##################
 tar -xf autoconf-2.72.tar.xz
@@ -141,7 +141,7 @@ cd autoconf-2.72
 make
 make check
 make install
-cd ..
+cd /sources
 rm -rf autoconf-2.72
 ################# automake 1.17 ######################
 tar -xf automake-1.17.tar.xz 
@@ -151,7 +151,7 @@ cd automake-1.17
 make
 make -j$(($(nproc)>4?$(nproc):4)) check
 make install
-cd ..
+cd /sources
 rm -rf automake-1.17
 #################### openssl-33.3.1 ########################
 tar -xzf openssl-3.3.1.tar.gz
@@ -169,7 +169,7 @@ sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile
 make MANSUFFIX=ssl install
 mv -v /usr/share/doc/openssl /usr/share/doc/openssl-3.3.1
 cp -vfr doc/* /usr/share/doc/openssl-3.3.1
-cd ..
+cd /sources
 rm -rf openssl-3.3.1
 ################### kmod-33 ######################################
 tar -xf kmod-33.tar.xz
@@ -190,7 +190,7 @@ ln -sfv ../bin/kmod /usr/sbin/$target
 rm -fv /usr/bin/$target
 done
 
-cd ..
+cd /sources
 rm -rf kmod-33
 ################ libelf from elfutils-0.191 ##############
 tar -xjf elfutils-0.191.tar.bz2 
@@ -220,7 +220,7 @@ cd   libffi-3.4.6
 make
 make check
 make install
-cd ..
+cd /sources
 rm -rf libffi-3.4.6
 ############### python 3.12.5 ###########################
 tar -xf Python-3.12.5.tar.xz
@@ -247,7 +247,7 @@ tar --no-same-owner \
 cp -R --no-preserve=mode python-3.12.5-docs-html/* \
 /usr/share/doc/python-3.12.5/html
 
-cd ..
+cd /sources
 rm -rf Python-3.12.5
 ########### flit-core-3.9.0 ######################
 tar -xzf flit_core-3.9.0.tar.gz 
@@ -256,7 +256,7 @@ cd flit_core-3.9.0
 pip3 wheel -w dist --no-cache-dir --no-build-isolation --no-deps $PWD
 pip3 install --no-index --no-user --find-links dist flit_core
 
-cd ..
+cd /sources
 rm -rf flit_core-3.9.0
 ################### wheel - 0.44.0 ###################
 tar -xzf wheel-0.44.0.tar.gz
@@ -265,7 +265,7 @@ cd wheel-0.44.0
 pip3 wheel -w dist --no-cache-dir --no-build-isolation --no-deps $PWD
 pip3 install --no-index --find-links=dist wheel
 
-cd ..
+cd /sources
 rm -rf wheel-0.44.0
 ################## setuptools-72.2.0 ##########################
 tar -xzf setuptools-72.2.0.tar.gz
@@ -274,7 +274,7 @@ cd setuptools-72.2.0
 pip3 wheel -w dist --no-cache-dir --no-build-isolation --no-deps $PWD
 pip3 install --no-index --find-links dist setuptools
 
-cd ..
+cd /sources
 rm -rf setuptools-72.2.0
 ###################### ninja-1.12.1 #############################
 tar -xzf  ninja-1.12.1.tar.gz
@@ -293,7 +293,7 @@ install -vm755 ninja /usr/bin/
 install -vDm644 misc/bash-completion /usr/share/bash-completion/completions/ninja
 install -vDm644 misc/zsh-completion /usr/share/zsh/site-functions/_ninja
 
-cd ..
+cd /sources
 rm -rf ninja-1.12.1
 ####################### meson-1.5.1 ####################################
 tar -xzf meson-1.5.1.tar.gz
@@ -304,7 +304,7 @@ pip3 install --no-index --find-links dist meson
 install -vDm644 data/shell-completions/bash/meson /usr/share/bash-completion/completions/meson
 install -vDm644 data/shell-completions/zsh/_meson /usr/share/zsh/site-functions/_meson
 
-cd ..
+cd /sources
 rm -rf meson-1.5.1
 ################## coreutils-9.5 #########################
 tar -xf coreutils-9.5.tar.xz  
@@ -329,7 +329,7 @@ mv -v /usr/bin/chroot /usr/sbin
 mv -v /usr/share/man/man1/chroot.1 /usr/share/man/man8/chroot.8
 sed -i 's/"1"/"8"/' /usr/share/man/man8/chroot.8
 
-cd ..
+cd /sources
 rm -rf coreutils-9.5
 ######### return to acl to install following coreutils install, due to dependencies ####
 tar -xf acl-2.3.2.tar.xz
@@ -347,7 +347,7 @@ make check
 echo "tests run, check results, hit enter to continue"
 read -r
 make install
-cd ..
+cd /sources
 rm -rf acl-2.3.2
 ###################### check -0.15.2##################
 tar -xzf check-0.15.2.tar.gz
@@ -358,7 +358,7 @@ make
 make check
 make docdir=/usr/share/doc/check-0.15.2 install
 
-cd ..
+cd /sources
 rm -rf check-0.15.2
 ######################### diffutils-3.10 ######################
 tar -xf diffutils-3.10.tar.xz
@@ -368,7 +368,7 @@ cd diffutils-3.10
 make
 make check
 make install
-cd ..
+cd /sources
 rm -rf diffutils-3.10
 ######################## gawk-5.3.0 ########################
 tar -xf gawk-5.3.0.tar.xz
@@ -385,7 +385,7 @@ ln -sv gawk.1 /usr/share/man/man1/awk.1
 mkdir -pv /usr/share/doc/gawk-5.3.0
 cp -v doc/{awkforai.txt,*.{eps,pdf,jpg}} /usr/share/doc/gawk-5.3.0
 
-cd ..
+cd /sources
 rm -rf gawk-5.3.0
 ######################## findutils-4.10.0 ##################
 tar -xf findutils-4.10.0.tar.xz  
@@ -397,7 +397,7 @@ chown -R tester .
 su tester -c "PATH=$PATH make check"
 make install
 
-cd ..
+cd /sources
 rm -rf findutils-4.10.0
 ################### groff-1.23.0 #######################
 tar -xzf groff-1.23.0.tar.gz
@@ -407,7 +407,7 @@ PAGE=<paper_size> ./configure --prefix=/usr
 make
 make check
 make install
-cd ..
+cd /sources
 rm -rf groff-1.23.0
 ################# grub-2.12 FOR UEFI ######################################
 #### start with dependencies
@@ -435,7 +435,7 @@ make
 make install
 cp -v -R docs -T /usr/share/doc/freetype-2.13.3 &&
 rm -v /usr/share/doc/freetype-2.13.3/freetype-config.1
-cd ..
+cd /sources
 rm -rf freetype-2.13.3
 ############## popt for efi bootlader #################
 wget http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.19.tar.gz
@@ -448,7 +448,7 @@ cd popt-1.19
 make
 make check
 make install
-cd ..
+cd /sources
 rm -rf popt-1.19
 ###################mandoc-1.14.6 ################################
 wget https://mandoc.bsd.lv/snapshots/mandoc-1.14.6.tar.gz
@@ -467,7 +467,7 @@ read -r
 
 install -vm755 mandoc   /usr/bin &&
 install -vm644 mandoc.1 /usr/share/man/man1
-cd..
+cd /sources
 rm -rf mandoc-1.14.6
 ################ efivar-39 ##############
 wget https://github.com/rhboot/efivar/archive/39/efivar-39.tar.gz
@@ -479,7 +479,7 @@ tar -xzf efivar-39.tar.gz
 cd efivar-39
 make
 make install LIBDIR=/usr/lib
-cd ..
+cd /sources
 rm -rf efivar-39
 
 ######### efibootmgr-18 #################
@@ -495,7 +495,7 @@ mkdir /boot/efi
 mount /dev/nvme0n1p2 /boot
 mount /dev/nvme0n1p1 /boot/efi
 make install EFIDIR=LFS
-cd ..
+cd /sources
 rm -rf efibootmgr-18
 #################### grub 2.12 ########################
 wget https://unifoundry.com/pub/unifont/unifont-15.1.05/font-builds/unifont-15.1.05.pcf.gz
@@ -519,7 +519,7 @@ unset TARGET_CC &&
 make
 make install &&
 mv -v /etc/bash_completion.d/grub /usr/share/bash-completion/completions
-cd ..
+cd /sources
 rm -rf grub-2.12
 ############### end of Grub for UEFI ####
 ################## gzip 1.13 ######################
@@ -531,7 +531,7 @@ cd gzip-1.13
 make
 make check
 make install
-cd ..
+cd /sources
 rm -rf gzip-1.13
 #################################iproute2-6.10.0######################
 tar -xf iproute2-6.10.0.tar.xz
@@ -569,7 +569,7 @@ cd libpipeline-1.5.7
 make
 make check
 make install
-cd ..
+cd /sources
 rm -rf libpipeline-1.5.7
 ############ make 4.4.1 ##############################
 tar -xzf make-4.4.1.tar.gz
@@ -580,7 +580,7 @@ make
 chown -R tester .
 su tester -c "PATH=$PATH make check"
 make install
-cd..
+cd /sources
 rm -rf make-4.4.1
 ##############patch-2.7.6 ##########################################
 tar -xf patch-2.7.6.tar.xz
@@ -589,7 +589,7 @@ cd patch-2.7.6
 make
 make check
 make install
-cd ..
+cd /sources
 rm -rf patch-2.7.6
 ################# tar 1.35 ##########################################
 tar -xf tar-1.35.tar.xz
@@ -602,7 +602,7 @@ make
 make check
 make install
 make -C doc install-html docdir=/usr/share/doc/tar-1.35
-cd ..
+cd /sources
 rm -rf tar-1.35
 #####################texinfo 7.1#########################
 tar -xf texinfo-7.1.tar.xz
@@ -614,7 +614,7 @@ make
 make check
 make install
 make TEXMF=/usr/share/texmf install-tex
-cd ..
+cd /sources
 rm -rf texinfo-7.1
 ################# vim ########################################
 tar -xzf vim-9.1.0660.tar.gz
@@ -654,7 +654,7 @@ endif
 EOF
 
 vim -c ':options'
-cd ..
+cd /sources
 rm -rf vim-9.1.0660
 ######### markupsafe-2.1.5 ########################
 tar -xzf MarkupSafe-2.1.5.tar.gz
@@ -663,7 +663,7 @@ cd MarkupSafe-2.1.5
 pip3 wheel -w dist --no-cache-dir --no-build-isolation --no-deps $PWD
 pip3 install --no-index --no-user --find-links dist Markupsafe
 
-cd..
+cd /sources
 rm -rf MarkupSafe-2.1.5
 ####################jinja2-3.1.4########################
 tar -xzf jinja2-3.1.4.tar.gz
@@ -672,7 +672,7 @@ cd jinja2-3.1.4
 pip3 wheel -w dist --no-cache-dir --no-build-isolation --no-deps $PWD
 pip3 install --no-index --no-user --find-links dist Jinja2
 
-cd ..
+cd /sources
 rm -rf jinja-3.1.4
 ################# udev from systemd-256.4 ##################
 tar -xzf systemd-256.4.tar.gz
@@ -764,7 +764,7 @@ cd man-db-2.12.1
 make
 make check
 make install
-cd ..
+cd /sources
 rm -rf man-db-2.12.1
 ########################## procps ng 4.0.4 ######################
 tar -xf procps-ng-4.0.4.tar.xz
@@ -779,7 +779,7 @@ make
 chown -R tester .
 su tester -c "PATH=$PATH make check"
 make install
-cd ..
+cd /sources
 rm -rf procps-ng-4.0.4
 #################################util linux 2.40.2 ############
 tar -xf util-linux-2.40.2.tar.xz
@@ -812,7 +812,7 @@ su tester -c "make -k check"
 echo "check test and hit enter"
 read -r
 make install
-cd ..
+cd /sources
 rm -rf util-linux-2.40.2
 ################## E2fsprogs 1.47.1 ##################################
 tar -xzf e2fsprogs-1.47.1.tar.gz
@@ -869,7 +869,7 @@ secure_mode 2
 # End /etc/syslog.conf
 EOF
 
-cd ..
+cd /sources
 rm -rf sysklogd-2.6.1
 #################### sysvinit 3.10 ##############################
 tar -xf sysvinit-3.10.tar.xz
@@ -878,7 +878,7 @@ cd sysvinit-3.10
 patch -Np1 -i ../sysvinit-3.10-consolidated-1.patch
 make
 make install
-cd ..
+cd /sources
 rm -rf sysvinit-3.10
 ############### cleaning up ##########################
 rm -rf /tmp/{*,.*}
