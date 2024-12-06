@@ -23,6 +23,8 @@ else
 fi
 popd
 
+echo "downloading packages for later use"
+
 wget https://downloads.sourceforge.net/freetype/freetype-2.13.3.tar.xz --directory-prefix=$LFS/sources
 wget https://downloads.sourceforge.net/freetype/freetype-doc-2.13.3.tar.xz --directory-prefix=$LFS/sources
 wget http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.19.tar.gz --directory-prefix=$LFS/sources
