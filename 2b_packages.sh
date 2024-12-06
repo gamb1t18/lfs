@@ -10,12 +10,7 @@ wget https://www.linuxfromscratch.org/lfs/view/stable/md5sums --directory-prefix
 
 echo "Downloading packages"
 wget --input-file=$LFS/sources/wget-list-sysv --continue --directory-prefix=$LFS/sources
-wget https://downloads.sourceforge.net/freetype/freetype-2.13.3.tar.xz --directory-prefix=$LFS/sources
-wget https://downloads.sourceforge.net/freetype/freetype-doc-2.13.3.tar.xz --directory-prefix=$LFS/sources
-wget http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.19.tar.gz --directory-prefix=$LFS/sources
-wget https://mandoc.bsd.lv/snapshots/mandoc-1.14.6.tar.gz --directory-prefix=$LFS/sources
-wget https://github.com/rhboot/efivar/archive/39/efivar-39.tar.gz --directory-prefix=$LFS/sources
-wget https://github.com/rhboot/efibootmgr/archive/18/efibootmgr-18.tar.gz --directory-prefix=$LFS/sources
+
 
 echo "MD5SUM check"
 pushd $LFS/sources
@@ -28,3 +23,10 @@ else
 fi
 popd
 
+wget https://downloads.sourceforge.net/freetype/freetype-2.13.3.tar.xz --directory-prefix=$LFS/sources
+wget https://downloads.sourceforge.net/freetype/freetype-doc-2.13.3.tar.xz --directory-prefix=$LFS/sources
+wget http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.19.tar.gz --directory-prefix=$LFS/sources
+wget https://mandoc.bsd.lv/snapshots/mandoc-1.14.6.tar.gz --directory-prefix=$LFS/sources
+wget https://github.com/rhboot/efivar/archive/39/efivar-39.tar.gz --directory-prefix=$LFS/sources
+wget https://github.com/rhboot/efibootmgr/archive/18/efibootmgr-18.tar.gz --directory-prefix=$LFS/sources
+wget https://unifoundry.com/pub/unifont/unifont-15.1.05/font-builds/unifont-15.1.05.pcf.gz --directory-prefix=$LFS/sources
