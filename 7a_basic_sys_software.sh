@@ -353,6 +353,10 @@ rm -rf pkgconf-2.3.0
 ################### binutils-2.43.1 ######################
 tar -xf binutils-2.43.1.tar.xz
 cd binutils-2.43.1
+
+mkdir build
+cd build
+
 ../configure --prefix=/usr \
 --sysconfdir=/etc \
 --enable-gold \
@@ -370,7 +374,7 @@ make -k check
 make tooldir=/usr install
 rm -fv /usr/lib/lib{bfd,ctf,ctf-nobfd,gprofng,opcodes,sframe}.a
 
-cd ..
+cd /sources
 rm -rf binutils-2.43.1
 ##################### gmp-6.3.0 ############################
 tar -xf gmp-6.3.0.tar.xz
