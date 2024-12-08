@@ -516,7 +516,7 @@ make NETNS_RUN_DIR=/run/netns
 make SBINDIR=/usr/sbin install
 mkdir -pv /usr/share/doc/iproute2-6.10.0
 cp -v COPYING README* /usr/share/doc/iproute2-6.10.0
-cd ..
+cd /sources
 rm -rf iproute2-6.10.0
 ######################kbd 2.6.4 ###############################
 tar -xf kbd-2.6.4.tar.xz
