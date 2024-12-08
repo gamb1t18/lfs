@@ -403,7 +403,7 @@ rm -rf findutils-4.10.0
 tar -xzf groff-1.23.0.tar.gz
 cd groff-1.23.0
 
-PAGE=<paper_size> ./configure --prefix=/usr
+PAGE=letter ./configure --prefix=/usr
 make
 make check
 make install
