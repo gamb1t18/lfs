@@ -468,9 +468,10 @@ tar -xzf efibootmgr-18.tar.gz
 cd efibootmgr-18
 
 make EFIDIR=LFS EFI_LOADER=grubx64.efi
-mkdir /boot/efi
+mkdir /boot
+mkdir /boot/efi/EFI
 mount /dev/nvme0n1p2 /boot
-mount /dev/nvme0n1p1 /boot/efi
+mount /dev/nvme0n1p1 /boot/efi/EFI
 make install EFIDIR=LFS
 cd /sources
 rm -rf efibootmgr-18
