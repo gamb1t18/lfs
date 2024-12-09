@@ -817,8 +817,7 @@ rm -rf e2fsprogs-1.47.1
 tar -xzf sysklogd-2.6.1.tar.gz
 cd sysklogd-2.6.1
 
-./configure --prefix=/usr
- \
+./configure --prefix=/usr \
 --sysconfdir=/etc \
 --runstatedir=/run \
 --without-logger
