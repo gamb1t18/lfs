@@ -34,8 +34,7 @@ make install
 cd ../..
 
 rm -rf binutils-2.43.1 || echo "Failed to remove binutils-2.43.1"
-echo "Binutils compiled, hit enter to continue"
-read -r
+echo "Binutils compiled"
 
 ###### GCC-14.2.0 ####    PASS 1    ###################
 ###requires GMP, MPFR, and MPC##################
@@ -95,8 +94,7 @@ rm -rf gmp-6.3.0
 rm -rf mpfr-4.2.1
 rm -rf mpc-1.3.1
 
-echo "Finished compiling GCC. Hit Enter to continue"
-read -r
+echo "Finished compiling GCC"
 
 ######## Linux-6.10.5 API Headers ###########
 echo "Compiling Linux Headers"
@@ -113,8 +111,7 @@ cp -rv usr/include $LFS/usr
 
 cd ..
 rm -rf linux-6.10.5
-echo "finished Linux API headers. Hit enter to continue"
-read -r
+echo "finished Linux API headers"
 
 ######## Glibc-2.40 ###################
 
@@ -158,8 +155,7 @@ cd ../..
 
 rm -rf glibc-2.40 || echo "Failed to remove glibc-2.40"
 
-echo "Finished compiling GCC. Hit enter to continue"
-read -r
+echo "Finished compiling GCC"
 
 
 ############ System Check / Sanity Check ######
