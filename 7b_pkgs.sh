@@ -626,7 +626,6 @@ endif
 " End /etc/vimrc
 EOF
 
-vim -c ':options'
 cd /sources
 rm -rf vim-9.1.0660
 ######### markupsafe-2.1.5 ########################
