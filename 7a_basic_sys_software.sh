@@ -611,8 +611,6 @@ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib
 cd /sources
 rm -rf gcc-14.2.0
 ################# ncurses-6.5 ######################
-echo "starting ncurses, hit enter to continue"
-read -r
 tar -xzf ncurses-6.5.tar.gz
 cd ncurses-6.5
 
