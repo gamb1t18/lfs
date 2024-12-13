@@ -716,8 +716,6 @@ bash_cv_strtold_broken=no \
 --docdir=/usr/share/doc/bash-5.2.32
 
 make
-echo "just performed MAKE, hit enter"
-read -r
 chown -R tester .
 
 su -s /usr/bin/expect tester << "EOF"
