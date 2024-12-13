@@ -706,8 +706,6 @@ make install
 cd ..
 rm -rf grep-3.11
 ########### bash-5.2.32 ###########
-echo "about to install bash, hit enter"
-read -r
 tar -xzf bash-5.2.32.tar.gz
 cd bash-5.2.32
 
