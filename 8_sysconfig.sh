@@ -158,3 +158,46 @@ cat > /etc/shells << "EOF"
 # End /etc/shells
 EOF
 
+##### Making it bootable #########################################
+
+cat > /etc/fstab << "EOF"
+# Begin /etc/fstab
+
+# file system  mount-point    type     options             dump  fsck
+#                                                                order
+
+/dev/nvme0n1p4  /             ext4     defaults            1     1
+/dev/nvme0n1p3  swap          swap     pri=1               0     0
+/dev/nvme0n1p2 /boot          ext4     noauto,defaults     1     2
+/dev/nvme0n1p1 /boot/efi/EFI  vfat     noauto,defaults     0     0
+proc           /proc          proc     nosuid,noexec,nodev 0     0
+sysfs          /sys           sysfs    nosuid,noexec,nodev 0     0
+devpts         /dev/pts       devpts   gid=5,mode=620      0     0
+tmpfs          /run           tmpfs    defaults            0     0
+devtmpfs       /dev           devtmpfs mode=0755,nosuid    0     0
+tmpfs          /dev/shm       tmpfs    nosuid,nodev        0     0
+cgroup2        /sys/fs/cgroup cgroup2  nosuid,noexec,nodev 0     0
+
+# End /etc/fstab
+EOF
+
+########## THE LINUX KERNEL ######## THE LINUX KERNEL #############
+cd /sources
+tar -xf linux-6.10.5.tar.xz    
+cd linux-6.10.5
+
+make mrproper
+make menuconfig
+
+
+
+
+
+
+
+
+
+
+
+
+
