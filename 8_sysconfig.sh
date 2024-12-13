@@ -6,7 +6,7 @@ tar -xf  lfs-bootscripts-20240825.tar.xz
 cd  lfs-bootscripts-20240825
 make install
 cd ..
-mf -rf  lfs-bootscripts-20240825
+rm -rf  lfs-bootscripts-20240825
 ###############next line creates initial udev rules for naming scheme
 bash /usr/lib/udev/init-net-rules.sh 
 
