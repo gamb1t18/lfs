@@ -548,7 +548,7 @@ sed -e 's/{ target nonpic } //' \
 
 chown -R tester .
 su tester -c "PATH=$PATH make -k check"
-../contrib/test_summary
+#../contrib/test_summary ###############use that command for a summary of results
 make install
 chown -v -R root:root \
 /usr/lib/gcc/$(gcc -dumpmachine)/14.2.0/include{,-fixed}
