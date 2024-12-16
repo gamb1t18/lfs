@@ -642,8 +642,6 @@ cp -v -R doc -T /usr/share/doc/ncurses-6.5
 
 cd ..
 rm -rf ncurses-6.5
-echo "Finished ncurses starting sed, hit enter to continue"
-read -r
 ################### sed-4.9 ###################
 tar -xf sed-4.9.tar.xz
 cd sed-4.9
