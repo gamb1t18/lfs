@@ -12,7 +12,7 @@ bash /usr/lib/udev/init-net-rules.sh
 
 ## run this ### ### code and copy NAME########### COPY NAME ######### COPY NAME ###########
 echo "change the value of IFACE to the NAME of the output"
-cat /etc/udev/rules.d/70-persistent-net.rules
+#cat /etc/udev/rules.d/70-persistent-net.rules
 
 ###this creates a sample file for the eth0 device with a static IP address
 ### change IFACE to output of NAME from previous command
