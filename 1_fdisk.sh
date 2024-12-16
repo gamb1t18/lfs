@@ -44,5 +44,7 @@ mkfs -v -t ext4 "${LFS_DISK}p2"
 mkfs -v -t ext4 "${LFS_DISK}p4"
 mkswap "${LFS_DISK}p3"
 /sbin/swapon -v "${LFS_DISK}p3"
+mount "${LFS_DISK}2 /boot
+mount "${LFS_DISK}1 /boot/efi
 
 exit 0
